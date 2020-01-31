@@ -1,24 +1,33 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import Login from './components/Login'
+import Welcome from './components/Welcome'
+import "primereact/resources/themes/nova-light/theme.css";
+import "primereact/resources/primereact.min.css";
+import "primeicons/primeicons.css";
+import './main.css'
 
 function App() {
+
+  const [isSignUp, setSignUp] = useState(false);
+  const [isLogged, setLogged] = useState(false);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {
+        isLogged
+          ? null
+          : (
+            <div className='button-panel'>
+              <button className='regular-button' onClick={() => setSignUp(false)}>Sign in</button>
+              <button className='regular-button' onClick={() => setSignUp(true)}>Sign up</button>
+            </div>
+          )
+      }
+      {
+        isLogged
+          ? <Welcome setLogged={setLogged} />
+          : <Login isSignUp={isSignUp} setSignUp={setSignUp} setLogged={setLogged} />
+      }
     </div>
   );
 }
